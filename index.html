@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.15.5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datasource@0.1.0"></script>
+</head>
+
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById("myChart");
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    type: 'line',
+                    yAxisID: 'Download (Mbit/s)',
+                    backgroundColor: 'transparent',
+                    borderColor: 'rgb(255, 99, 132)',
+                    pointBackgroundColor: 'rgb(255, 99, 132)',
+                    tension: 0,
+                    fill: false
+                }, {
+                    type: 'line',
+                    yAxisID: 'Upload (Mbit/s)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'transparent'
+                }]
+            },
+            plugins: [ChartDataSource],
+            options: {
+                scales: {
+                    yAxes: [{
+                        id: 'Download (Mbit/s)',
+                        gridLines: {
+                            drawOnChartArea: false
+                        }
+                    }, {
+                        id: 'Upload (Mbit/s)',
+                        position: 'right',
+                        gridLines: {
+                            drawOnChartArea: false
+                        }
+                    }]
+                },
+                plugins: {
+                    datasource: {
+                        url: 'https://stwolny.github.io/broadband-monitoring/speedtest.csv'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
